@@ -61,12 +61,23 @@ class View extends Secure_Login
         $page = $model->getPage($slug);
         if ($page) {
             $textile = new Textile();
+            $page->content = preg_replace('/\[\[([^\]]+)\]\]/e', 'View::wiki_linkfy(\'$1\')', $page->content);
             $page->content = $textile->TextileThis($page->content);
             include 'template/page.php';
         } else {
             header('Location: /edit/'.$slug);
             die;
         }
+    }
+
+    public function wiki_linkfy($text)
+    {
+        $link = '<a href="%s" title="%s">%s</a>';
+        $href = preg_replace('~[^\\pL\d]+~u', '-', $text);
+        $href = trim($href, '-');
+        $href = iconv( 'UTF-8', 'US-ASCII//TRANSLIT', $href );
+        print $href;
+        return sprintf($link, $href, $text, $text);
     }
 }
 
