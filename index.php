@@ -18,4 +18,4 @@ app(array(
     '^/remove/([\w\d_-]+)/?$' => 'Remove',
     '^/edit/([\w\d_-]+)/?$'   => 'Edit',
     '^/([\w\d_-]+)?/?$'       => 'View',
-));
+), $_SERVER['REQUEST_URI']);

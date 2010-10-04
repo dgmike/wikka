@@ -76,7 +76,6 @@ class View extends Secure_Login
         $href = preg_replace('~[^\\pL\d]+~u', '-', $text);
         $href = trim($href, '-');
         $href = iconv( 'UTF-8', 'US-ASCII//TRANSLIT', $href );
-        print $href;
         return sprintf($link, $href, $text, $text);
     }
 }
