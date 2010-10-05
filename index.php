@@ -1,6 +1,9 @@
 <?php
 
 error_reporting(E_ALL);
+header('Content-Type: text/html; charset=utf-8');
+
+define ('BASEURL', 'http://labs.virgula.com.br/wik/');
 
 include 'classTextile.php';
 include 'controller.php';
@@ -18,4 +21,4 @@ app(array(
     '^/remove/([\w\d_-]+)/?$' => 'Remove',
     '^/edit/([\w\d_-]+)/?$'   => 'Edit',
     '^/([\w\d_-]+)?/?$'       => 'View',
-), $_SERVER['REQUEST_URI']);
+), $_SERVER['PATH_INFO']);

@@ -1,6 +1,6 @@
 Options Indexes FollowSymLinks
 RewriteEngine On
 
-RewriteBase /
+RewriteBase /wik/
 RewriteCond $1 !^(static|index\.php)
 RewriteRule ^(.*)$ index.php/$1 [L,QSA]

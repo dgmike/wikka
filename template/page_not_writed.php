@@ -11,7 +11,7 @@
 
   <?php include 'menu.php' ?>
 
-  <form method="post" action="/edit/<?php echo $slug; ?>">
+  <form method="post" action="<?php echo BASEURL ?>edit/<?php echo $slug; ?>">
   
     <label>
         <span>Título</span>

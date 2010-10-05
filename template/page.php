@@ -9,8 +9,8 @@
     <header>
         <h1>
             <?php echo $page->title ?>
-            <a href="/edit/<?php echo $page->slug; ?>">editar</a>
-            <a href="/remove/<?php echo $page->slug; ?>">remover</a>
+            <a href="<?php echo BASEURL ?>edit/<?php echo $page->slug; ?>">editar</a>
+            <a href="<?php echo BASEURL ?>remove/<?php echo $page->slug; ?>">remover</a>
         </h1>
     </header>
 

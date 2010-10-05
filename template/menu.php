@@ -1,6 +1,6 @@
 
     <nav>
-        <a href="/">Pagina Inicial</a>
-        <a href="/logout">Logout</a>
+        <a href="<?php echo BASEURL ?>">Pagina Inicial</a>
+        <a href="<?php echo BASEURL ?>logout">Logout</a>
     </nav>
 

@@ -6,7 +6,7 @@ class Login
     {
         session_start();
         if (session_id() && isset($_SESSION['user'])) {
-            header('Location: /');
+            header('Location: '.BASEURL);
             die;
         }
         include 'template/login.php';
@@ -20,11 +20,11 @@ class Login
             if ($login) {
                 session_start();
                 $_SESSION['user'] = $_POST['login'];
-                header('Location: /');
+                header('Location: '.BASEURL);
                 die;
             }
         }
-        header('Location: /login');
+        header('Location: '.BASEURL.'login');
         die;
     }
 }
@@ -36,7 +36,7 @@ class Logout
         session_start();
         $_SESSION = array();
         session_destroy();
-        header('Location: /login');
+        header('Location: '.BASEURL.'login');
         die;
     }
 }
@@ -47,7 +47,7 @@ class Secure_Login
     {
         session_start();
         if (!session_id() || !isset($_SESSION['user'])) {
-            header('Location: /login');
+            header('Location: '.BASEURL.'login');
             die;
         }
     }
@@ -61,21 +61,24 @@ class View extends Secure_Login
         $page = $model->getPage($slug);
         if ($page) {
             $textile = new Textile();
-            $page->content = preg_replace('/\[\[([^\]]+)\]\]/e', 'View::wiki_linkfy(\'$1\')', $page->content);
+            $page->content = preg_replace('/\[\[([^\]\:]+)\:([^\]]+)\]\]/e', 'View::wiki_linkfy(\'$1\', \'$2\')', $page->content);
+            $page->content = preg_replace('/\[\[([^\]]+)\]\]/e', 'View::wiki_linkfy(\'$1\', \'$1\')', $page->content);
             $page->content = $textile->TextileThis($page->content);
+            $page->content = str_replace('&nbsp;<a ', '<a ', $page->content);
             include 'template/page.php';
         } else {
-            header('Location: /edit/'.$slug);
+            header('Location: '.BASEURL.'edit/'.$slug);
             die;
         }
     }
 
-    public function wiki_linkfy($text)
+    public function wiki_linkfy($text, $href)
     {
-        $link = '<a href="%s" title="%s">%s</a>';
-        $href = preg_replace('~[^\\pL\d]+~u', '-', $text);
+        $link = '&nbsp;<a href="%s" title="%s">%s</a>';
+        $href = htmlentities(utf8_decode($href));
+        $href = preg_replace('/&(.)(acute|cedil|circ|ring|tilde|uml);/', '$1', mb_strtolower($href) );
+        $href = preg_replace('/[^a-z]/', '-', $href);
         $href = trim($href, '-');
-        $href = iconv( 'UTF-8', 'US-ASCII//TRANSLIT', $href );
         return sprintf($link, $href, $text, $text);
     }
 }
@@ -86,7 +89,7 @@ class Remove extends Secure_Login
     {
         $model = new Model;
         $model->removePage($slug);
-        header('Location: /'.$slug);
+        header('Location: '.BASEURL.$slug);
         die;
     }
 }
@@ -107,6 +110,6 @@ class Edit extends Secure_Login
     {
         $model = new Model;
         $model->savePage($slug, $_POST);
-        header('Location: /'.$slug);
+        header('Location: '.BASEURL.$slug);
     }
 }

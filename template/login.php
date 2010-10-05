@@ -9,7 +9,7 @@
     <header>
         <h1>Login</h1>
     </header>
-    <form action="/login" method="post">
+    <form action="<?php echo BASEURL ?>login" method="post">
         <label>
             <span>Login</span>
             <input type="text" name="login" value="" />
