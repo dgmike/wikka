@@ -1,0 +1,156 @@
+/* 
+html5doctor.com Reset Stylesheet
+v1.2 
+2009-07-15
+Author: Richard Clark - http://richclarkdesign.com
+*/
+
+html, body, div, span, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, address, cite, code,
+del, dfn, em, img, ins, kbd, q, samp,
+small, strong, sub, sup, var,
+b, i,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, dialog, figure, footer, header, 
+hgroup, menu, nav, section, menu,
+time, mark, audio, video, source {
+    margin:0;
+    padding:0;
+    border:0;
+    outline:0;
+    font-size:100%;
+    vertical-align:baseline;
+    background:transparent;
+}
+body {
+    line-height:1;
+}
+
+article, aside, dialog, figure, footer, header, 
+hgroup, menu, nav, section, menu { 
+    display:block;
+}
+
+nav ul {
+    list-style:none;
+}
+
+blockquote, q {
+    quotes:none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+    content:'';
+    content:none;
+}
+
+ins {
+    background-color:#ff9;
+    text-decoration:none;
+}
+
+mark {
+    background-color:#ff9;
+    font-style:italic;
+    font-weight:bold;
+}
+
+del {
+    text-decoration: line-through;
+}
+
+abbr[title], dfn[title] {
+    border-bottom:1px dotted #000;
+    cursor:help;
+}
+
+/* tables still need 'cellspacing="0"' in the markup */
+table {
+    border-collapse:collapse;
+    border-spacing:0;
+}
+
+hr {
+    display:block;
+    height:1px;
+    border:0;   
+    border-top:1px solid #cccccc;
+    margin:1em 0;
+    padding:0;
+}
+
+input, select {
+    vertical-align:middle;
+}
+
+/* Fim do CSS reset */
+
+body{font-size:90%; font-family:arial;color:#484848;}
+
+.ativo{background:#66ffff;font-weight:bold;}
+.aviso{background:#ffff00;padding:5px;text-align:center;}
+.opcao{font-size:10px;float:left;width:150px;padding:2px;border:1px solid #ccc;margin:1px;}
+.caixa_opcao{width:700px;}
+
+nav { width: 170px; border-right:1px solid #484848; float:left; }
+nav a { width: auto; color: #484848; display: block; padding: 4px; font-weight: bold; text-decoration: none; }
+nav a:hover { color: #990000; background: #f4f4f4; }
+nav a.separate { border-top: 1px solid #CCC; }
+nav ul { border-bottom:1px solid #EEE; }
+nav ul li a { border-left:10px solid #EEE;font-weight:normal;font-size:.9em }
+
+footer {display:block;clear:both; border-top: 1px solid #CCC;margin-top:10px; text-align:center;}
+
+header {background:#000 url('logo.gif') 10px center no-repeat;border-bottom:1px solid #fff;font-weight:bold;padding:0px 10px 0 10px; padding: 1em 1.5em 1.5em 120px;}
+header h1 {font-size:14px;color:#fff;}
+header h1 a {font-weight:normal;color:#666;}
+header h1 a:hover {color:#FFF;}
+
+.conteudo {margin: 10px 10px 10px 180px;width:700px}
+.conteudo p {line-height:1.2em;margin-bottom:10px;}
+.conteudo h1.title {font-size:2em;}
+.conteudo h1 {font-size:1.5em;}
+.conteudo h2 {font-size:1.3em;}
+.conteudo h1,.conteudo h2, .conteudo h3, .conteudo h4, .conteudo h5, .conteudo h6 {line-height:1.2em;margin-bottom:10px;}
+.conteudo a:link {color:#00C;}
+.conteudo a:visited {color:#55C;}
+.conteudo a:hover {color:#C00;}
+.conteudo a:active {color:#C00;}
+.conteudo ul {margin:1em 2em;}
+.conteudo pre {font-size:11px;}
+
+form {
+	position:relative;
+}
+
+form label {
+	display:block;
+	margin:0.5em;
+}
+
+form label span {
+	display:block;
+}
+
+form input[type=text][name=title] {
+	font-size:2em;
+	width: 23.5em;
+}
+
+form input[type=text] {
+	width: 45em;
+}
+
+form input[readonly] {
+	background:#FFF;
+	color:#666;
+}
+
+form textarea {
+	width: 50em;
+	height: 50em;
+}
