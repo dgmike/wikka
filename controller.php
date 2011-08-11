@@ -55,16 +55,35 @@ class Secure_Login
 
 class View extends Secure_Login
 {
+    static $parts = array();
+
+    static function alocate($content)
+    {
+        $key = '###'.sha1($content.uniqid()).'###';
+        preg_match('@<pre([^>]*)>(.*)</pre>@Usim', utf8_decode($content), $matches);
+        self::$parts[$key] = '<pre'.stripslashes($matches[1]).'>'.htmlentities(stripslashes($matches[2])).'</pre>';
+        return $key;
+    }
+
     public function get($slug = 'index')
     {
         $model = new Model;
         $page = $model->getPage($slug);
         if ($page) {
+
+            $page->content = preg_replace('@(<pre[^>]*>.*</pre>)@Usime', "View::alocate('\\1')", $page->content);
+
             $textile = new Textile();
             $page->content = preg_replace('/\[\[([^\]\:]+)\:([^\]]+)\]\]/e', 'View::wiki_linkfy(\'$1\', \'$2\')', $page->content);
             $page->content = preg_replace('/\[\[([^\]]+)\]\]/e', 'View::wiki_linkfy(\'$1\', \'$1\')', $page->content);
             $page->content = $textile->TextileThis($page->content);
             $page->content = str_replace('&nbsp;<a ', '<a ', $page->content);
+            $page->content = preg_replace('@</ul>[\s\t\n\r]+<ul>@', '', $page->content);
+
+            foreach (self::$parts as $k=>$v) {
+                $page->content = str_replace('<p>'.$k.'</p>', $v, $page->content);
+            }
+
             include 'template/page.php';
         } else {
             header('Location: '.BASEURL.'edit/'.$slug);
@@ -111,5 +130,31 @@ class Edit extends Secure_Login
         $model = new Model;
         $model->savePage($slug, $_POST);
         header('Location: '.BASEURL.$slug);
+    }
+}
+
+class Admin_Index extends Secure_Login
+{
+    public function get()
+    {
+        include 'template/admin.php';
+    }
+}
+
+class Admin_Action extends Secure_Login
+{
+    public function get($area)
+    {
+        if (is_callable(array($this, '_' . $area))) {
+            call_user_func(array($this, '_' . $area));
+        }
+    }
+
+    public function _menu()
+    {
+        $title = 'Admin > menu';
+        $model = new Model;
+        $menu = $model->getMenu();
+        include 'template/admin/menu.php';
     }
 }

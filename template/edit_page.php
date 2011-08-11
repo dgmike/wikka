@@ -1,15 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8" />
-    <title>Nova página: <?php echo $slug ?></title>
-</head>
-<body>
-  <header>
-      <h1>Editando <em><?php echo $page->title ?></em></h1>
-  </header>
-
-  <?php include 'menu.php' ?>
+<?php
+$title = 'Editando <em>'.$page->title.'</em>';
+include 'header.php';
+?>
 
   <form method="post" action="<?php echo BASEURL; ?>edit/<?php echo $slug; ?>">
   
@@ -20,7 +12,7 @@
 
     <label>
         <span>slug</span>
-        <input type="text" class="text" value="<?php echo $slug; ?>" name="slug" disabled="disabled" />
+        <input type="text" class="text" value="<?php echo $slug; ?>" name="slug" readonly="readonly" />
     </label>
 
     <label>
@@ -34,5 +26,4 @@
 
   </form>
 
-</body>
-</html>
+<?php include 'footer.php' ?>

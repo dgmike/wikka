@@ -836,6 +836,22 @@ class Textile
         $text = $this->doSpecial($text, '<code>', '</code>', 'fCode');
         $text = $this->doSpecial($text, '@', '@', 'fCode');
         $text = $this->doSpecial($text, '<pre>', '</pre>', 'fPre');
+
+        $text = $this->doSpecial($text, '<pre class="css">', '</pre>', 'fPre');
+
+        $text = $this->doSpecial($text, '<pre class="javascript">', '</pre>', 'fPre');
+        $text = $this->doSpecial($text, '<pre class="jscript">', '</pre>', 'fPre');
+        $text = $this->doSpecial($text, '<pre class="js">', '</pre>', 'fPre');
+
+        $text = $this->doSpecial($text, '<pre class="php">', '</pre>', 'fPre');
+
+        $text = $this->doSpecial($text, '<pre class="sql">', '</pre>', 'fPre');
+
+        $text = $this->doSpecial($text, '<pre class="xml">', '</pre>', 'fPre');
+        $text = $this->doSpecial($text, '<pre class="html">', '</pre>', 'fPre');
+        $text = $this->doSpecial($text, '<pre class="xhtml">', '</pre>', 'fPre');
+        $text = $this->doSpecial($text, '<pre class="xstl">', '</pre>', 'fPre');
+
         return $text;
     }
 
@@ -854,11 +870,16 @@ class Textile
     function fPre($m)
     {
       @list(, $before, $text, $after) = $m;
+      $matches = '';
+      if ( preg_match('@<pre([^>]*)>@', $m[0], $matches) ) {
+      	  $matches = $matches[1];
+      }
+      
       if ($this->restricted)
           // $text is already escaped
-            return $before.'<pre>'.$this->shelve($text).'</pre>'.$after;
+            return $before.'<pre'.$matches.'>'.$this->shelve($text).'</pre>'.$after;
       else
-            return $before.'<pre>'.$this->shelve($this->encode_html($text)).'</pre>'.$after;
+            return $before.'<pre'.$matches.'>'.$this->shelve($this->encode_html($text)).'</pre>'.$after;
     }
 // -------------------------------------------------------------
     function shelve($val)

@@ -1,15 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8" />
-    <title>Nova página: <?php echo $slug ?></title>
-</head>
-<body>
-  <header>
-      <h1>A página <em><?php echo $slug ?></em> ainda não foi escrita</h1>
-  </header>
-
-  <?php include 'menu.php' ?>
+<?php
+$title = 'A página <em>'.$slug.'</em> ainda não foi escrita';
+include 'header.php';
+?>
 
   <form method="post" action="<?php echo BASEURL ?>edit/<?php echo $slug; ?>">
   
@@ -34,5 +26,4 @@
 
   </form>
 
-</body>
-</html>
+<?php include 'footer.php' ?>

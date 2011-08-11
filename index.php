@@ -1,8 +1,8 @@
 <?php
 
 error_reporting(E_ALL);
-header('Content-Type: text/html; charset=utf-8');
 
+header('Content-Type: text/html; charset=utf-8');
 define ('BASEURL', 'http://labs.virgula.com.br/wik/');
 
 include 'classTextile.php';

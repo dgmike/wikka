@@ -2,5 +2,9 @@ Options Indexes FollowSymLinks
 RewriteEngine On
 
 RewriteBase /wik/
+
+RewriteRule ^smarty/?$ static/smarty-docs/index.html
+RewriteRule ^smarty/(.*)$ static/smarty-docs/$1.html
+
 RewriteCond $1 !^(static|index\.php)
 RewriteRule ^(.*)$ index.php/$1 [L,QSA]

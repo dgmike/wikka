@@ -21,5 +21,4 @@
         <input type="submit" class="submit" value="Login" name="" />
     </form>
 
-</body>
-</html>
+<?php include 'footer.php' ?>

@@ -4,7 +4,7 @@ class Model extends PDO
 {
     public function __construct()
     {
-        parent::__construct('sqlite:banco.db');
+        parent::__construct('sqlite:localbank.db');
     }
 
     public function checkLogin($login, $senha)
@@ -41,12 +41,12 @@ class Model extends PDO
         if (!$page->c) {
             $stmt = $this->prepare('INSERT INTO page (slug, title, content) VALUES (?, ?, ?)');
             $stmt->bindValue(1, $slug, PDO::PARAM_STR);
-            $stmt->bindValue(2, $data['title'], PDO::PARAM_STR);
-            $stmt->bindValue(3, $data['content'], PDO::PARAM_STR);
+            $stmt->bindValue(2, stripslashes($data['title']), PDO::PARAM_STR);
+            $stmt->bindValue(3, stripslashes($data['content']), PDO::PARAM_STR);
         } else {
             $stmt = $this->prepare('UPDATE page SET title = ?, content = ? WHERE slug = ?');
-            $stmt->bindParam(1, $data['title'], PDO::PARAM_STR);
-            $stmt->bindParam(2, $data['content'], PDO::PARAM_STR);
+            $stmt->bindParam(1, stripslashes($data['title']), PDO::PARAM_STR);
+            $stmt->bindParam(2, stripslashes($data['content']), PDO::PARAM_STR);
             $stmt->bindParam(3, $slug, PDO::PARAM_STR);
         }
         $stmt->execute();
@@ -57,5 +57,25 @@ class Model extends PDO
         $stmt = $this->prepare('DELETE FROM page WHERE slug = ?');
         $stmt->bindParam(1, $slug);
         $stmt->execute();
+    }
+
+    public function getConfig($key)
+    {
+        $stmt = $this->prepare('SELECT value FROM config WHERE key = ?');
+        $stmt->bindParam(1, $key);
+        $result = $stmt->execute();
+        if (!$result) {
+            return false;
+        }
+        $result = $stmt->fetch(PDO::FETCH_OBJ);
+        if (!$result) {
+            return false;
+        }
+        return $result->value;
+    }
+
+    public function getMenu()
+    {
+        return $this->getConfig('menu');
     }
 }
